@@ -6,7 +6,7 @@
  */
 package leetcode
 
-class Solution {
+class TwoSum {
     fun twoSum(numbers: IntArray, target: Int) : IntArray {
 
         // This map will be used to store the occurrence of elements
@@ -30,5 +30,5 @@ class Solution {
 }
 
 fun main() {
-    println(Solution().twoSum(intArrayOf(2, 7, 11, 15), 9).contentToString())
+    println(TwoSum().twoSum(intArrayOf(2, 7, 11, 15), 9).contentToString())
 }
