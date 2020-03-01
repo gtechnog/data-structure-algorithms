@@ -23,25 +23,72 @@ class AddTwoNumbers {
         if (list1 == null) return list2
         if (list2 == null) return list1
 
-        val resultList : ListNode? = null
-        val currentPointerOnResult : ListNode? = null
-        while (list1 != null && list2 != null) {
-            val sum = list1.`val` + list2.`val`
-            val newValue = sum % 10
-            val carry = sum / 10
+        var resultList : ListNode? = null
+        var moveResultList : ListNode? = resultList
 
-            val newNode = ListNode(newValue)
-            currentPointerOnResult?.next = newNode ?: {
+        var moveList1 = list1
+        var moveList2 = list2
+
+        var carry = 0
+        while (moveList1 != null && moveList2 != null) {
+            val sum = moveList1.`val` + moveList2.`val` + carry
+            carry = sum / 10
+            val nodeValue = sum % 10
+            val newNode = ListNode(nodeValue)
+
+            if (resultList == null) {
                 resultList = newNode
-
+                moveResultList = newNode
+            } else {
+                moveResultList?.next = newNode
+                moveResultList = newNode
             }
 
+            moveList1 = moveList1.next
+            moveList2 = moveList2.next
         }
 
+        // List1 might be completed
+        if (moveList1 == null) {
+            while (moveList2 != null) {
+                val sum = moveList2.`val` + carry
+                carry = sum / 10
+                val nodeValue = sum % 10
+                val newNode = ListNode(nodeValue)
+                moveResultList?.next = newNode
+                moveResultList = newNode
+                moveList2 = moveList2.next
+            }
+        }
 
+        // List2 might be completed
+        if (moveList2 == null) {
+            while (moveList1 != null) {
+                val sum = moveList1.`val` + carry
+                carry = sum / 10
+                val nodeValue = sum % 10
+                val newNode = ListNode(nodeValue)
+                moveResultList?.next = newNode
+                moveResultList = newNode
+                moveList1 = moveList1.next
+            }
+        }
+
+        // Still carry might be left
+        if (carry != 0) {
+            val newNode = ListNode(carry)
+            moveResultList?.next = newNode
+            moveResultList = newNode
+        }
+
+        return resultList
     }
 }
 
 class ListNode(var `val` : Int) {
     var next: ListNode? = null
+}
+
+fun main() {
+
 }
