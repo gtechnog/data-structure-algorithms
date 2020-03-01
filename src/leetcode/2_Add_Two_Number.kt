@@ -48,31 +48,27 @@ class AddTwoNumbers {
             moveList2 = moveList2.next
         }
 
-        // List1 might be completed
-        if (moveList1 == null) {
-            while (moveList2 != null) {
-                val sum = moveList2.`val` + carry
-                carry = sum / 10
-                val nodeValue = sum % 10
-                val newNode = ListNode(nodeValue)
-                moveResultList?.next = newNode
-                moveResultList = newNode
-                moveList2 = moveList2.next
-            }
-        }
+        // List2 might have some element left
+        moveList2?.let { while (moveList2 != null) {
+            val sum = moveList2!!.`val` + carry
+            carry = sum / 10
+            val nodeValue = sum % 10
+            val newNode = ListNode(nodeValue)
+            moveResultList?.next = newNode
+            moveResultList = newNode
+            moveList2 = moveList2!!.next
+        } }
 
-        // List2 might be completed
-        if (moveList2 == null) {
-            while (moveList1 != null) {
-                val sum = moveList1.`val` + carry
-                carry = sum / 10
-                val nodeValue = sum % 10
-                val newNode = ListNode(nodeValue)
-                moveResultList?.next = newNode
-                moveResultList = newNode
-                moveList1 = moveList1.next
-            }
-        }
+        // List1 might have some element left
+        moveList1?.let { while (moveList1 != null) {
+            val sum = moveList1!!.`val` + carry
+            carry = sum / 10
+            val nodeValue = sum % 10
+            val newNode = ListNode(nodeValue)
+            moveResultList?.next = newNode
+            moveResultList = newNode
+            moveList1 = moveList1!!.next
+        } }
 
         // Still carry might be left
         if (carry != 0) {
@@ -80,7 +76,6 @@ class AddTwoNumbers {
             moveResultList?.next = newNode
             moveResultList = newNode
         }
-
         return resultList
     }
 }
@@ -90,5 +85,4 @@ class ListNode(var `val` : Int) {
 }
 
 fun main() {
-
 }
